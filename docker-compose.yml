@@ -5,43 +5,27 @@ services:
     build: .
     container_name: php_app_new
     ports:
-      - "8082:80"  # Cambiamos el puerto de la aplicación web
+      - "8082:80"
     volumes:
       - .:/var/www/html
-      - /Users/alejandro/Desktop/DOCKER/DEMOS/Registros:/var/www/html/Registros:rw
-    depends_on:
-      - db
     environment:
-      MYSQLHOST: "mysql-production-5344.up.railway.app"  # Host de Railway
-      MYSQLPORT: 3306
+      MYSQLHOST: "viaduct.proxy.rlwy.net"  # 🔹 Host de Railway
+      MYSQLPORT: 26846
       MYSQLUSER: "root"
       MYSQLPASSWORD: "YhlaYTTFQBaLCmuUZMROtwmcpCXrOTJg"
       MYSQLDATABASE: "railway"
-
-  db:
-    image: mysql:8.0
-    container_name: mysql_db_new
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: vehiculos
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    ports:
-      - "3307:3306"  # Puerto local 3307 para evitar conflictos con Railway
-    volumes:
-      - db_data:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin_railway
     restart: always
     ports:
-      - "8083:80"  # Puerto de phpMyAdmin
+      - "8083:80"  # 🔹 Accede en http://localhost:8083
     environment:
-      PMA_HOST: "mysql-production-5344.up.railway.app"  # Host público de Railway
-      PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: "YhlaYTTFQBaLCmuUZMROtwmcpCXrOTJg"
+      PMA_HOST: "viaduct.proxy.rlwy.net"  # 🔹 Usa Railway
+      PMA_PORT: 26846
+      PMA_USER: "root"
+      PMA_PASSWORD: "YhlaYTTFQBaLCmuUZMROtwmcpCXrOTJg"
 
 volumes:
   db_data:
