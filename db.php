@@ -1,10 +1,11 @@
 <?php
-$servername = "mysql-production-5344.up.railway.app"; // ⚠️ Host público de Railway
-$username = "root";
-$password = "YhlaYTTFQBaLCmuUZMROtwmcpCXrOTJg";
-$database = "railway";
-$port = 3306; // ⚠️ Puerto correcto
+$servername = getenv("MYSQLHOST") ?: "mysql-production-5344.up.railway.app";
+$username = getenv("MYSQLUSER") ?: "root";
+$password = getenv("MYSQLPASSWORD") ?: "YhlaYTTFQBaLCmuUZMROtwmcpCXrOTJg";
+$database = getenv("MYSQLDATABASE") ?: "railway";
+$port = getenv("MYSQLPORT") ?: 3306;
 
+// Conexión a MySQL
 $connection = new mysqli($servername, $username, $password, $database, $port);
 
 if ($connection->connect_error) {

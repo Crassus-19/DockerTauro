@@ -11,6 +11,12 @@ services:
       - /Users/alejandro/Desktop/DOCKER/DEMOS/Registros:/var/www/html/Registros:rw
     depends_on:
       - db
+    environment:
+      MYSQLHOST: "mysql-production-5344.up.railway.app"  # Host de Railway
+      MYSQLPORT: 3306
+      MYSQLUSER: "root"
+      MYSQLPASSWORD: "YhlaYTTFQBaLCmuUZMROtwmcpCXrOTJg"
+      MYSQLDATABASE: "railway"
 
   db:
     image: mysql:8.0
@@ -22,7 +28,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
-      - "3307:3306"  # Cambiamos MySQL al puerto 3307 en el host
+      - "3307:3306"  # Puerto local 3307 para evitar conflictos con Railway
     volumes:
       - db_data:/var/lib/mysql
 
@@ -31,12 +37,11 @@ services:
     container_name: phpmyadmin_railway
     restart: always
     ports:
-      - "8083:80"  # Cambia el puerto si es necesario
+      - "8083:80"  # Puerto de phpMyAdmin
     environment:
-      PMA_HOST: mysql.railway.internal  # Host de Railway
-      PMA_PORT: 3306  # Puerto
-      MYSQL_ROOT_PASSWORD: YhlaYTTFQBaLCmuUZMROtwmcpCXrOTJg  # Contraseña de Railway
-
+      PMA_HOST: "mysql-production-5344.up.railway.app"  # Host público de Railway
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: "YhlaYTTFQBaLCmuUZMROtwmcpCXrOTJg"
 
 volumes:
   db_data:
