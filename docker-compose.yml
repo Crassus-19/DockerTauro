@@ -28,13 +28,15 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin_new
+    container_name: phpmyadmin_railway
     restart: always
     ports:
-      - "8083:80"  # Cambiamos phpMyAdmin al puerto 8083
+      - "8083:80"  # Cambia el puerto si es necesario
     environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: mysql.railway.internal  # Host de Railway
+      PMA_PORT: 3306  # Puerto
+      MYSQL_ROOT_PASSWORD: YhlaYTTFQBaLCmuUZMROtwmcpCXrOTJg  # Contraseña de Railway
+
 
 volumes:
   db_data:
