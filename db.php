@@ -1,14 +1,14 @@
 <?php
-$servername = "db";
-$username = "user";
-$password = "password";
-$database = "vehiculos";
-$port = 3306; // 🔹 Esto sigue en 3306 porque es dentro del contenedor
+$host = "tu-host-publico.railway.app"; // Copia el host desde Railway
+$user = "root";
+$password = "YhlaYTTFQBaLCmuUZMROtwmcpCXrOTJg";
+$database = "railway";
+$port = 3306;
 
-$connection = new mysqli($servername, $username, $password, $database, $port);
+$connection = new mysqli($host, $user, $password, $database, $port);
 
 if ($connection->connect_error) {
-    die("Error de conexión: " . $connection->connect_error);
+    die("❌ Error de conexión: " . $connection->connect_error);
 }
-
+echo "✅ Conexión exitosa a MySQL en Railway!";
 ?>
