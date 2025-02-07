@@ -10,8 +10,8 @@ RUN a2enmod rewrite
 # Instalar dependencias necesarias
 RUN apt-get update && apt-get install -y curl ca-certificates
 
-# Instalar Node.js manualmente (Evitar conflictos con npm)
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+# Instalar Node.js 20 (en lugar de 18) y npm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g npm@latest
 

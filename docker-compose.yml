@@ -3,19 +3,18 @@ version: '3.8'
 services:
   web:
     build: .
-    container_name: php_app
+    container_name: php_app_new
     ports:
-      - "8080:80"
+      - "8082:80"  # Cambiamos el puerto de la aplicación web
     volumes:
       - .:/var/www/html
       - /Users/alejandro/Desktop/DOCKER/DEMOS/Registros:/var/www/html/Registros:rw
     depends_on:
       - db
 
-
   db:
     image: mysql:8.0
-    container_name: mysql_db
+    container_name: mysql_db_new
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -23,16 +22,16 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
-      - "3306:3306"
+      - "3307:3306"  # Cambiamos MySQL al puerto 3307 en el host
     volumes:
       - db_data:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
+    container_name: phpmyadmin_new
     restart: always
     ports:
-      - "8081:80"
+      - "8083:80"  # Cambiamos phpMyAdmin al puerto 8083
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: root
