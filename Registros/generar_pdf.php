@@ -38,10 +38,13 @@ if (!is_writable($dirPath)) {
 }
 
 // ✅ Guardar el archivo JSON
-$filePath = $dirPath . "temp_registro.json";
-if (file_put_contents($filePath, $data) === false) {
-    die("Error: No se pudo escribir en '$filePath'. Verifica permisos.");
+$filePath = "/var/www/html/Registros/temp_registro.json";
+file_put_contents($filePath, $data);
+
+if (!file_exists($filePath)) {
+    die("Error: No se pudo crear el archivo JSON.");
 }
+
 
 // ✅ Verificar si el archivo realmente existe
 if (!file_exists($filePath)) {
