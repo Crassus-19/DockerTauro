@@ -1,44 +1,54 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . "/db.php");
 
+// Habilitar errores de MySQL para ver posibles fallos
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-// Conectar a la base de datos de vehículos
-$vehiculos_db = new mysqli($servername, $username, $password, "vehiculos");
+// Verificar conexión
+if ($connection->connect_error) {
+    die("❌ Error de conexión: " . $connection->connect_error);
+}
 
 // Obtener unidades desde la base de datos vehiculos
 $sql = "SELECT ID, Nombre, Numero FROM vehiculos ORDER BY Nombre ASC";
-$result = $vehiculos_db->query($sql);
+$result = $connection->query($sql);
 
-// Manejar el formulario
+// Inicializar mensajes de error y éxito
 $errorMessage = "";
 $successMessage = "";
 
+// Manejo del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $unidad_id = $_POST["unidad_id"];
-    $cantidad = $_POST["cantidad"];
-    $tipo_orden = $_POST["tipo_orden"];
-    $comentarios = trim($_POST["comentarios"]);
-    $reportado_por = trim($_POST["reportado_por"]);
+    $unidad_id = $_POST["unidad_id"] ?? "";
+    $cantidad = $_POST["cantidad"] ?? "";
+    $tipo_orden = $_POST["tipo_orden"] ?? "";
+    $comentarios = trim($_POST["comentarios"] ?? "");
+    $reportado_por = trim($_POST["reportado_por"] ?? "");
 
+    // Validar que los campos no estén vacíos
     if (empty($unidad_id) || empty($cantidad) || empty($tipo_orden) || empty($comentarios) || empty($reportado_por)) {
-        $errorMessage = "Todos los campos son obligatorios.";
+        $errorMessage = "❌ Todos los campos son obligatorios.";
     } else {
-        // Insertar el nuevo registro en la tabla registros
-        $stmt = $connection->prepare("INSERT INTO registros (Unidad_ID, Cantidad, Tipo_Orden, Comentarios, Reportado_Por) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("idsss", $unidad_id, $cantidad, $tipo_orden, $comentarios, $reportado_por);
-        
-        if ($stmt->execute()) {
-            // Actualizar la cantidad en la tabla vehiculos con el nuevo valor ingresado
+        try {
+            // Insertar el nuevo registro en la tabla registros
+            $stmt = $connection->prepare("INSERT INTO registros (Unidad_ID, Cantidad, Tipo_Orden, Comentarios, Reportado_Por) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("idsss", $unidad_id, $cantidad, $tipo_orden, $comentarios, $reportado_por);
+            $stmt->execute();
+
+            // Actualizar la cantidad en la tabla vehiculos
             $update_sql = "UPDATE vehiculos SET Cantidad = ? WHERE ID = ?";
-            $update_stmt = $vehiculos_db->prepare($update_sql);
+            $update_stmt = $connection->prepare($update_sql);
             $update_stmt->bind_param("di", $cantidad, $unidad_id);
             $update_stmt->execute();
 
-            $successMessage = "Orden registrada exitosamente.";
-        } else {
-            $errorMessage = "Error en la consulta: " . $stmt->error;
+            // Mensaje de éxito
+            $successMessage = "✅ Orden registrada exitosamente.";
+
+            // Redirigir después de 2 segundos
+            header("refresh:2;url=registrosV.php");
+        } catch (Exception $e) {
+            $errorMessage = "❌ Error en la consulta: " . $e->getMessage();
         }
-        $stmt->close();
     }
 }
 ?>
@@ -56,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container my-5">
         <h2 class="mb-4">Registrar Orden de Mantenimiento/Reparación</h2>
 
+        <!-- Mensajes -->
         <?php if (!empty($errorMessage)): ?>
             <div class='alert alert-danger'><?php echo $errorMessage; ?></div>
         <?php endif; ?>
@@ -63,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class='alert alert-success'><?php echo $successMessage; ?></div>
         <?php endif; ?>
 
+        <!-- Formulario -->
         <form method="post">
             <!-- Selección de Unidad -->
             <div class="mb-3">
