@@ -1,0 +1,138 @@
+/* Estilo general */
+body {
+    font-family: ABCDiatype,ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"; 
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    background-image: radial-gradient(circle, #ccc 1px, transparent 1px);
+    background-size: 20px 20px; /* Ajusta el tamaño del patrón de puntos */
+    
+}
+
+/* Estilo del encabezado */
+header {
+    padding: 2em;
+    color: #000000;
+}
+
+.header-container {
+    display: inline-flex; /* Hace que la caja tenga un ancho ajustado */
+    align-items: center; /* Centra verticalmente el logo y el texto */
+    background-color: white; /* Fondo blanco para la caja */
+    padding-right: 1em; /* Añade 1em de espacio extra hacia la derecha */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra ligera */
+}
+
+.logo {
+    width: 100px; /* Ajusta el tamaño del logo */
+    height: auto;
+    margin-right: 1em; /* Separa el logo del texto hacia la derecha */
+}
+
+header h1 {
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.menu {
+    margin-right: 2em; /* Separa el menú del borde derecho */
+    margin-top: -9em; /* Ajusta la altura de las cajas negras hacia arriba */
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos salten de línea */
+    gap: 1em; /* Espacio entre las cajas */
+    justify-content: flex-end; /* Alinea los elementos a la derecha */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+}
+
+.menu li {
+    background-color: #000; /* Fondo negro */
+    padding: 0.5em 1em; /* Espaciado dentro de las cajas */
+    display: inline-block; /* Cada caja es un bloque independiente */
+    text-align: center;
+
+}
+
+.menu a {
+    color: #fff; /* Texto blanco */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 1em; /* Tamaño del texto */
+    display: block;
+    text-align: center;
+}
+
+.menu li:hover {
+    background-color: #0000FF; /* Cambia el fondo al pasar el mouse */
+}
+
+.menu li:nth-child(2) {
+    box-shadow: 4px 4px 4px #0000FF; /* Sombra específica para "Unidades" */
+}
+
+/* 🟢 CONTENEDOR PRINCIPAL */
+.main-container {
+    display: flex;
+    justify-content: center; /* Centra la caja dentro del contenedor */
+    align-items: center;
+    margin: 7em auto;
+    max-width: 1800px;
+    width: 95%;
+}
+
+/* 📌 CAJA CENTRAL (ELIMINANDO ESPACIO EN BLANCO IZQUIERDO) */
+.center-box {
+    flex: 2;
+    background-color: white;
+    padding: 3em; /* Reduce si es necesario */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    border: 2px solid #000;
+    max-width: 1400px;
+    width: 100%;
+    min-height: 800px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.center-box h2 {
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    padding: 0.5em;
+    text-align: left;
+    font-size: 2em;
+    font-weight: bold;
+    display: inline-block; /* Mantiene el tamaño exacto */
+    width: auto; /* Ajusta solo al contenido */
+    margin-left: 0; /* Asegura que inicie desde la izquierda */
+    align-self: flex-start; /* Lo coloca en la izquierda dentro de flexbox */
+}
+
+/* 📌 CONTENEDOR INTERNO PARA ELIMINAR BORDES INTERNOS */
+.content-container {
+    width: 100%; /* Ahora ocupa todo el ancho */
+    max-width: 1400px; /* Controla que no sea demasiado grande */
+    padding: 0; /* Elimina cualquier espacio adicional */
+    margin: 0 auto; /* Centra sin dejar bordes */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 📌 IFRAME (ELIMINANDO BORDE EXTRA) */
+iframe.content-iframe {
+    display: block;
+    width: 100%;
+    height: 700px;
+    min-height: 600px;
+    border: none;
+    margin: 0; /* Evita cualquier espacio extra */
+}

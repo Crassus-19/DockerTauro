@@ -1,0 +1,167 @@
+/* Estilo general */
+body {
+    font-family: ABCDiatype,ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"; 
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    background-image: radial-gradient(circle, #ccc 1px, transparent 1px);
+    background-size: 20px 20px; /* Ajusta el tamaño del patrón de puntos */
+    
+}
+
+/* Estilo del encabezado */
+header {
+    padding: 2em;
+    color: #000000;
+}
+
+.header-container {
+    display: inline-flex; /* Hace que la caja tenga un ancho ajustado */
+    align-items: center; /* Centra verticalmente el logo y el texto */
+    background-color: white; /* Fondo blanco para la caja */
+    padding-right: 1em; /* Añade 1em de espacio extra hacia la derecha */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra ligera */
+}
+
+.logo {
+    width: 100px; /* Ajusta el tamaño del logo */
+    height: auto;
+    margin-right: 1em; /* Separa el logo del texto hacia la derecha */
+}
+
+header h1 {
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.menu {
+    margin-right: 2em; /* Separa el menú del borde derecho */
+    margin-top: -9em; /* Ajusta la altura de las cajas negras hacia arriba */
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos salten de línea */
+    gap: 1em; /* Espacio entre las cajas */
+    justify-content: flex-end; /* Alinea los elementos a la derecha */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+}
+
+.menu li {
+    background-color: #000; /* Fondo negro */
+    padding: 0.5em 1em; /* Espaciado dentro de las cajas */
+    display: inline-block; /* Cada caja es un bloque independiente */
+    text-align: center;
+
+}
+
+.menu a {
+    color: #fff; /* Texto blanco */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 1em; /* Tamaño del texto */
+    display: block;
+    text-align: center;
+}
+
+.menu li:hover {
+    background-color: #0000FF; /* Cambia el fondo al pasar el mouse */
+}
+
+.menu li:nth-child(1) {
+    box-shadow: 4px 4px 4px #0000FF; /* Sombra específica para "Unidades" */
+}
+
+/* Contenedor principal */
+main {
+    display: flex; /* Usa Flexbox para alinear las cajas en una fila */
+    justify-content: space-between; /* Distribuye las cajas uniformemente */
+    align-items: flex-start; /* Alinea verticalmente al inicio */
+    padding: 2em; /* Espaciado interno del contenedor */
+    gap: 2em; /* Espacio entre las cajas */
+    margin: 5em auto; /* Centra la caja en la página y ajusta la posición vertical */
+}
+
+/* Estilo de las cajas */
+.left-box {
+    background-color: white; /* Fondo blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+    padding: 2em; /* Espaciado interno */
+    width: 30%; /* Cada caja ocupa el 30% del ancho del contenedor */
+    display: flex;
+    flex-direction: column; /* Organiza el contenido en columna */
+}
+
+.center-box {
+    background-color: white; /* Fondo blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+    padding: 2em; /* Espaciado interno */
+    width: 30%; /* Cada caja ocupa el 30% del ancho del contenedor */
+    display: flex;
+    flex-direction: column; /* Organiza el contenido en columna */
+}
+
+.right-box {
+    background-color: white; /* Fondo blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+    padding: 2em; /* Espaciado interno */
+    width: 30%; /* Cada caja ocupa el 30% del ancho del contenedor */
+    display: flex;
+    flex-direction: column; /* Organiza el contenido en columna */
+}
+
+/* Estilo de los títulos */
+
+.left-box h2 {
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    padding: 0.5em 0.5em; /* Espaciado interno de la caja */
+    margin: 0 0 1em 0; /* Sin margen superior, margen inferior para separación */
+    text-align: left; /* Alinea el texto dentro de la caja */
+    display: inline-block; /* Solo ocupa el espacio del texto */
+    font-size: 1.5em; /* Tamaño del texto */
+    font-weight: bold; /* Negrita */
+    position: relative; /* Necesario para posicionar la caja */
+    left: 0; /* Mueve la caja completamente a la izquierda del contenedor */
+}
+
+.center-box h2 {
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    padding: 0.5em 0.5em; /* Espaciado interno de la caja */
+    margin: 0 0 1em 0; /* Sin margen superior, margen inferior para separación */
+    text-align: left; /* Alinea el texto dentro de la caja */
+    display: inline-block; /* Solo ocupa el espacio del texto */
+    font-size: 1.5em; /* Tamaño del texto */
+    font-weight: bold; /* Negrita */
+    position: relative; /* Necesario para posicionar la caja */
+    left: 0; /* Mueve la caja completamente a la izquierda del contenedor */
+}
+
+.right-box h2 {
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    padding: 0.5em 0.5em; /* Espaciado interno de la caja */
+    margin: 0 0 1em 0; /* Sin margen superior, margen inferior para separación */
+    text-align: left; /* Alinea el texto dentro de la caja */
+    display: inline-block; /* Solo ocupa el espacio del texto */
+    font-size: 1.5em; /* Tamaño del texto */
+    font-weight: bold; /* Negrita */
+    position: relative; /* Necesario para posicionar la caja */
+    left: 0; /* Mueve la caja completamente a la izquierda del contenedor */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column; /* Las cajas se apilan en columnas en pantallas pequeñas */
+        align-items: center; /* Centra las cajas en pantallas pequeñas */
+    }
+
+    .left-box, .center-box, .right-box {
+        width: 100%; /* Cada caja ocupa todo el ancho disponible */
+    }
+}

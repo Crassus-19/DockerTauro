@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAURO</title>
+    <link rel="stylesheet" href="Inicio/styles.css">
+    <style>
+        /* Ajuste para que los iframes sean más grandes y se adapten al contenido */
+        .content-iframe {
+            width: 100%;
+            min-height: 600px; /* 🔹 Aumenta el tamaño mínimo del iframe */
+            border: none;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="logo-fletes-tauro-1349530607.jpg" alt="Logo de Tauro" class="logo">
+            <h1>Tauro <br> Administración</h1>
+        </div>
+    </header>
+    
+    <nav class="menu">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="unidades.html">Unidades</a></li>
+            <li><a href="registros.html">Registros</a></li>
+            <li><a href="OrdenesTrabajo.html">Órdenes de Trabajo</a></li>
+            <li><a href="Terminado.html">Registros Terminados</a></li>
+            <!-- <li><a href="#">Choferes</a></li> -->
+            <li><a href="mecanicos.html">Mecánicos</a></li>
+            <!-- <li><a href="usuarios.html">Usarios</a></li> -->
+            <!-- <li><a href="admin.html">ADMIN</a></li> -->
+        </ul>
+    </nav>
+
+    <main>
+        <div class="left-box">
+            <h2>Tauro Logistica</h2>
+            <iframe src="Inicio/TG.php" class="content-iframe" onload="resizeIframe(this)"></iframe>
+        </div>
+        <div class="center-box">
+            <h2>Fletes Tauro</h2>
+            <iframe src="Inicio/FT.php" class="content-iframe" onload="resizeIframe(this)"></iframe>
+        </div>
+        <div class="right-box">
+            <h2>Rancho San Antonio</h2>
+            <iframe src="Inicio/RSA.php" class="content-iframe" onload="resizeIframe(this)"></iframe>
+        </div>
+    </main>
+
+</body>
+</html>
