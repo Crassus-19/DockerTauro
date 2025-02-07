@@ -1,13 +1,11 @@
 <?php
-$usePublic = getenv("RAILWAY_ENVIRONMENT") ? false : true;
-
-$servername = $usePublic ? "viaduct.proxy.rlwy.net" : "mysql-production-5344.up.railway.app";
-$port = $usePublic ? 26846 : 3306;
+$servername = "viaduct.proxy.rlwy.net"; // 🔹 Host público de Railway
+$port = 26846; // 🔹 Puerto público de Railway
 $username = "root";
 $password = "YhlaYTTFQBaLCmuUZMROtwmcpCXrOTJg";
 $database = "railway";
 
-// Conexión a MySQL
+// Intentar conexión a MySQL
 $connection = new mysqli($servername, $username, $password, $database, $port);
 
 if ($connection->connect_error) {
@@ -15,5 +13,4 @@ if ($connection->connect_error) {
 }
 
 echo "✅ Conexión exitosa a MySQL!";
-
 ?>
