@@ -1,7 +1,9 @@
 <?php
+ob_start(); // Solución para evitar errores de header
+
 require_once($_SERVER["DOCUMENT_ROOT"] . "/db.php");
 
-// Habilitar errores de MySQL para ver posibles fallos
+// Habilitar errores de MySQL para depuración
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 // Verificar conexión
@@ -13,7 +15,7 @@ if ($connection->connect_error) {
 $sql = "SELECT ID, Nombre, Numero FROM vehiculos ORDER BY Nombre ASC";
 $result = $connection->query($sql);
 
-// Inicializar mensajes de error y éxito
+// Inicializar mensajes
 $errorMessage = "";
 $successMessage = "";
 
@@ -41,18 +43,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $update_stmt->bind_param("di", $cantidad, $unidad_id);
             $update_stmt->execute();
 
-            // Mensaje de éxito
-            $successMessage = "✅ Orden registrada exitosamente.";
-
-            // Redirigir después de 2 segundos
-            header("refresh:2;url=registrosV.php");
+            // Redirigir solo si no hubo errores
+            header("Location: registrosV.php");
+            exit();
         } catch (Exception $e) {
             $errorMessage = "❌ Error en la consulta: " . $e->getMessage();
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -76,7 +75,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- Formulario -->
         <form method="post">
-            <!-- Selección de Unidad -->
             <div class="mb-3">
                 <label class="form-label">Unidad</label>
                 <select class="form-select" name="unidad_id" required>
@@ -89,13 +87,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </div>
 
-            <!-- Cantidad -->
             <div class="mb-3">
                 <label class="form-label">Cantidad a actualizar</label>
                 <input type="number" class="form-control" name="cantidad" step="0.01" min="0.1" required placeholder="Ejemplo: 1000">
             </div>
 
-            <!-- Tipo de Orden -->
             <div class="mb-3">
                 <label class="form-label">Tipo de Orden</label>
                 <select class="form-select" name="tipo_orden" required>
@@ -105,19 +101,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </div>
 
-            <!-- Comentarios -->
             <div class="mb-3">
                 <label class="form-label">Comentarios</label>
                 <textarea class="form-control" name="comentarios" rows="3" required placeholder="Ejemplo: Cambio de aceite y revisión de frenos."></textarea>
             </div>
 
-            <!-- Reportado por -->
             <div class="mb-3">
                 <label class="form-label">Reportado por</label>
                 <input type="text" class="form-control" name="reportado_por" required placeholder="Ejemplo: Juan Pérez">
             </div>
 
-            <!-- Botones -->
             <div class="row mb-3">
                 <div class="col-sm-6 d-grid">
                     <button type="submit" class="btn btn-primary">Registrar</button>
@@ -130,3 +123,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 </html>
+<?php ob_end_flush(); // Finaliza el buffer de salida ?>

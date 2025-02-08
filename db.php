@@ -11,5 +11,5 @@ if ($connection->connect_error) {
     die("❌ Error de conexión: " . $connection->connect_error);
 }
 
-echo "✅ Conexión exitosa a MySQL!";
+// ✅ No hagas echo aquí, solo devuelve la conexión
 ?>
