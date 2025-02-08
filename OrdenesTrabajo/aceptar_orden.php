@@ -1,6 +1,6 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . "/db.php");
-
+require_once($_SERVER["DOCUMENT_ROOT"] . "/logs.php"); // Asegurar la función registrar_log()
 
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     $registro_id = $_GET["id"];
@@ -29,4 +29,3 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     exit();
 }
 ?>
-
