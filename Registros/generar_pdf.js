@@ -28,7 +28,7 @@ try {
 console.log("✅ Datos cargados correctamente:", row);
 
 // Ruta del archivo de salida
-const outputFilePath = "/var/www/html/Registros/registro.pdf"; // Ruta dentro del contenedor
+const outputFilePath = "/app/Registros/registro.pdf"; // Ruta dentro del contenedor
 
 
 // Crear documento PDF
