@@ -1,5 +1,5 @@
 <?php
-ob_start(); // 🔹 Iniciar buffer de salida para evitar errores de header
+ob_start();
 require_once($_SERVER["DOCUMENT_ROOT"] . "/db.php");
 
 if (!isset($_GET['id'])) {
@@ -23,14 +23,12 @@ if ($result->num_rows == 0) {
 $row = $result->fetch_assoc();
 $data = json_encode($row, JSON_PRETTY_PRINT);
 
-// ✅ Ruta corregida dentro del contenedor
-$dirPath = "/var/www/html/Registros/";
-
+$dirPath = "/app/Registros/";
 if (!is_dir($dirPath)) {
     mkdir($dirPath, 0777, true);
 }
 
-$filePath = "/var/www/html/Registros/temp_registro.json";
+$filePath = "/app/Registros/temp_registro.json";
 file_put_contents($filePath, $data);
 
 if (!file_exists($filePath)) {
@@ -38,12 +36,11 @@ if (!file_exists($filePath)) {
 }
 
 $nodePath = "/usr/bin/node"; 
-
-$command = "$nodePath /var/www/html/Registros/generar_pdf.js $filePath 2>&1";
+$command = "$nodePath /app/Registros/generar_pdf.js $filePath 2>&1";
 exec($command, $output, $return_var);
 
 if ($return_var !== 0) {
-    ob_end_clean(); // 🔹 Limpiar buffer antes de mostrar errores
+    ob_end_clean();
     echo "<pre>Error al ejecutar Node.js:\n";
     print_r($output);
     echo "</pre>";
@@ -51,7 +48,7 @@ if ($return_var !== 0) {
 }
 
 $pdfFileName = "registro_" . $id . ".pdf";
-$pdfFilePath = "/var/www/html/Registros/registro.pdf";
+$pdfFilePath = "/app/Registros/registro.pdf";
 
 if (!file_exists($pdfFilePath)) {
     die("Error: No se generó el archivo PDF correctamente.");
@@ -64,5 +61,5 @@ readfile($pdfFilePath);
 unlink($filePath);
 unlink($pdfFilePath);
 
-ob_end_flush(); // 🔹 Enviar salida al navegador después de los headers
+ob_end_flush();
 ?>
