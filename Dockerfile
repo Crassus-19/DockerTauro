@@ -1,31 +1,26 @@
-# force rebuild 1
-
 FROM php:8.3-cli
 
-# Instalar extensiones PHP
+# Instalar extensiones necesarias
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Instalar dependencias
+# Instalar Node si realmente lo usas
 RUN apt-get update && apt-get install -y \
-    curl \
-    ca-certificates \
     nodejs \
     npm \
     && rm -rf /var/lib/apt/lists/*
 
-# Copiar proyecto
+# Copiar proyecto completo
 WORKDIR /app
 COPY . /app
 
-# Instalar pdfkit
+# Si usas pdfkit
 WORKDIR /app/Registros
-RUN npm install pdfkit
+RUN npm install pdfkit || true
 
-# Volver a raíz del proyecto
 WORKDIR /app
 
-# Railway usa PORT dinámico
+# Railway puerto dinámico
 ENV PORT=8080
 
-# Servidor embebido PHP
+# Servidor PHP embebido
 CMD ["sh", "-c", "php -S 0.0.0.0:$PORT -t /app"]
