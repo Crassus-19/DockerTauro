@@ -1,11 +1,17 @@
 FROM php:8.3-apache
 
-# Eliminar otros MPM
-RUN rm -f /etc/apache2/mods-enabled/mpm_event.* \
-    && rm -f /etc/apache2/mods-enabled/mpm_worker.* \
-    && a2enmod mpm_prefork
+# Deshabilitar todos los MPM primero
+RUN a2dismod mpm_event || true \
+    && a2dismod mpm_worker || true \
+    && a2dismod mpm_prefork || true
 
-# PHP extensions
+# Habilitar solo prefork (requerido para mod_php)
+RUN a2enmod mpm_prefork
+
+# Verificar configuración en build (importante)
+RUN apachectl configtest
+
+# Extensiones PHP
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 RUN a2enmod rewrite
@@ -17,8 +23,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Node
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 
 WORKDIR /var/www/html/Registros
 RUN npm install pdfkit
