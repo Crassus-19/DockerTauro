@@ -1,4 +1,4 @@
-FROM php:8.3-fpm
+FROM php:8.3-cli
 
 # Instalar extensiones PHP
 RUN docker-php-ext-install mysqli pdo pdo_mysql
@@ -11,17 +11,19 @@ RUN apt-get update && apt-get install -y \
     npm \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalar pdfkit
+# Copiar proyecto
 WORKDIR /app
 COPY . /app
 
+# Instalar pdfkit
+WORKDIR /app/Registros
 RUN npm install pdfkit
 
-# Permisos
-RUN chown -R www-data:www-data /app
+# Volver a raíz del proyecto
+WORKDIR /app
 
 # Railway usa PORT dinámico
 ENV PORT=8080
 
-# Usar servidor embebido de PHP
-CMD php -S 0.0.0.0:$PORT -t /app
+# Servidor embebido PHP
+CMD ["sh", "-c", "php -S 0.0.0.0:$PORT -t /app"]
