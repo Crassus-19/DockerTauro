@@ -1,3 +1,5 @@
+# force rebuild 1
+
 FROM php:8.3-cli
 
 # Instalar extensiones PHP
