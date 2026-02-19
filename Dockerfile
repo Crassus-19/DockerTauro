@@ -1,37 +1,27 @@
-FROM php:8.3-apache
+FROM php:8.3-fpm
 
-# Deshabilitar todos los MPM primero
-RUN a2dismod mpm_event || true \
-    && a2dismod mpm_worker || true \
-    && a2dismod mpm_prefork || true
-
-# Habilitar solo prefork (requerido para mod_php)
-RUN a2enmod mpm_prefork
-
-# Verificar configuración en build (importante)
-RUN apachectl configtest
-
-# Extensiones PHP
+# Instalar extensiones PHP
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-RUN a2enmod rewrite
-
-# Dependencias
+# Instalar dependencias
 RUN apt-get update && apt-get install -y \
     curl \
     ca-certificates \
+    nodejs \
+    npm \
     && rm -rf /var/lib/apt/lists/*
 
-# Node
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs
+# Instalar pdfkit
+WORKDIR /app
+COPY . /app
 
-WORKDIR /var/www/html/Registros
 RUN npm install pdfkit
 
-WORKDIR /var/www/html
-COPY . /var/www/html/
+# Permisos
+RUN chown -R www-data:www-data /app
 
-RUN chown -R www-data:www-data /var/www/html/
+# Railway usa PORT dinámico
+ENV PORT=8080
 
-EXPOSE 80
+# Usar servidor embebido de PHP
+CMD php -S 0.0.0.0:$PORT -t /app
